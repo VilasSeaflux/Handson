@@ -2,3 +2,4 @@ This is just a randome text file.
 Adding this text from main branch.
 Test Data
 adding another text from main branch to pull the changes in another branch.
+adding this text from feature/practice branch.
