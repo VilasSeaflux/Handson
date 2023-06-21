@@ -42,6 +42,10 @@ var RecipeName = document.querySelector("#name");
 var type = document.querySelector("#type");
 var desc = document.querySelector("#desc");
 var ul = document.querySelector('.ul');
+// const body = document.querySelector('body') as HTMLBodyElement;
+//Description modal 
+var heading = document.querySelector('#RecipeName');
+var description = document.querySelector("#recipeDescription");
 //function to fetch the data;
 var getData = function () { return __awaiter(_this, void 0, void 0, function () {
     var res, data_1, err_1;
@@ -57,7 +61,8 @@ var getData = function () { return __awaiter(_this, void 0, void 0, function () 
                 data_1 = _a.sent();
                 data_1.map(function (item) {
                     console.log(item);
-                    RenderUl(item);
+                    RenderList(item);
+                    // view(item.id);
                 });
                 return [3 /*break*/, 4];
             case 3:
@@ -70,7 +75,7 @@ var getData = function () { return __awaiter(_this, void 0, void 0, function () 
 }); };
 getData();
 //function to render the Recipe lists
-var RenderUl = function (listData) {
+var RenderList = function (listData) {
     var li = document.createElement('li');
     li.classList.add("bg-light", "d-flex", "justify-content-between", "p-2");
     //This will create the span tag which will show name of Recipe
@@ -78,10 +83,33 @@ var RenderUl = function (listData) {
     spanLeft.innerText = listData.name;
     //this will create the right side span which will have the view update delete button;
     var spanRight = document.createElement('span');
-    spanRight.innerHTML = '<i class="bi bi-eye btn btn-primary"></i> <i class="bi bi-pencil btn btn-warning"></i> <i class="bi bi-trash3 btn btn-danger"></i>';
+    spanRight.innerHTML = "<i onclick=\"viewRecipe(" + listData.id + ")\" data-bs-target=\"#descriptionModal\" data-bs-toggle=\"modal\" class=\"bi bi-eye btn btn-primary\"></i> \n    <i class=\"bi bi-pencil btn btn-warning\"></i> <i class=\"bi bi-trash3 btn btn-danger\"></i>";
     li.append(spanLeft, spanRight);
     ul.append(li);
 };
+//this function will trigger view modal to view the recipe info:
+var viewRecipe = function (id) { return __awaiter(_this, void 0, void 0, function () {
+    var res, recipeData, _a, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0: return [4 /*yield*/, fetch("http://localhost:3000/recipes/" + id)];
+            case 1:
+                res = _c.sent();
+                return [4 /*yield*/, res.json()];
+            case 2:
+                recipeData = _c.sent();
+                _a = heading;
+                return [4 /*yield*/, recipeData.name];
+            case 3:
+                _a.innerText = _c.sent();
+                _b = description;
+                return [4 /*yield*/, recipeData.desc];
+            case 4:
+                _b.innerText = _c.sent();
+                return [2 /*return*/];
+        }
+    });
+}); };
 AddForm.addEventListener('submit', function (e) {
     e.preventDefault();
     // console.log(id.value,RecipeName.value,type.value,desc.value);
@@ -100,16 +128,11 @@ AddForm.addEventListener('submit', function (e) {
 });
 //This function posts data into database
 var postData = function (data) { return __awaiter(_this, void 0, void 0, function () {
-    var id, name, type, desc, res, result, err_2;
+    var res, result, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                id = data.id, name = data.name, type = data.type, desc = data.desc;
-                if (!(id == '' || name == '' || type == '' || desc == '')) return [3 /*break*/, 1];
-                alert("Please fill the details");
-                return [3 /*break*/, 5];
-            case 1:
-                _a.trys.push([1, 4, , 5]);
+                _a.trys.push([0, 3, , 4]);
                 return [4 /*yield*/, fetch('http://localhost:3000/recipes', {
                         method: "POST",
                         headers: {
@@ -117,18 +140,18 @@ var postData = function (data) { return __awaiter(_this, void 0, void 0, functio
                         },
                         body: JSON.stringify(data)
                     })];
-            case 2:
+            case 1:
                 res = _a.sent();
                 return [4 /*yield*/, res.json()];
-            case 3:
+            case 2:
                 result = _a.sent();
                 console.log("data Uploaded", result);
-                return [3 /*break*/, 5];
-            case 4:
+                return [3 /*break*/, 4];
+            case 3:
                 err_2 = _a.sent();
                 console.log("ERROR: ", err_2);
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
