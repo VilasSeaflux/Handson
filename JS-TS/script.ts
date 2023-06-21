@@ -6,12 +6,10 @@ const type = document.querySelector("#type") as HTMLInputElement;
 const desc = document.querySelector("#desc") as HTMLInputElement;
 
 const ul = document.querySelector('.ul') as HTMLUListElement;
-// const body = document.querySelector('body') as HTMLBodyElement;
 //Description modal 
 const heading = document.querySelector('#RecipeName') as HTMLHeadingElement;
 const description = document.querySelector("#recipeDescription") as HTMLParagraphElement;
 
-// console.log(body)
 interface Recipe {
     id: number,
     name: string,
@@ -47,7 +45,8 @@ const RenderList = (listData: Recipe) => {
     //this will create the right side span which will have the view update delete button;
     const spanRight = document.createElement('span');
     spanRight.innerHTML = `<i onclick="viewRecipe(${listData.id})" data-bs-target="#descriptionModal" data-bs-toggle="modal" class="bi bi-eye btn btn-primary"></i> 
-    <i class="bi bi-pencil btn btn-warning"></i> <i class="bi bi-trash3 btn btn-danger"></i>`
+    <i class="bi bi-pencil btn btn-warning"></i> 
+    <i onclick="Delete(${listData.id})" class="bi bi-trash3 btn btn-danger"></i>`
     li.append(spanLeft, spanRight);
     ul.append(li);
 }
@@ -62,11 +61,6 @@ const viewRecipe = async (id: (number | string)) => {
 
 AddForm.addEventListener('submit', (e: Event) => {
     e.preventDefault();
-    // console.log(id.value,RecipeName.value,type.value,desc.value);
-    // console.log(id.value);
-    // console.log(RecipeName.value);
-    // console.log(type.value);
-    // console.log(desc.value);
 
     const Recipe: Recipe = {
         id: id.valueAsNumber,
@@ -74,7 +68,6 @@ AddForm.addEventListener('submit', (e: Event) => {
         type: type.value,
         desc: desc.value
     }
-    // console.log(Recipe);
     postData(Recipe);
 });
 
@@ -95,8 +88,21 @@ const postData = async (data: Recipe) => {
     }
 }
 
-const render = () => {
+//function to send delete request data from database:
+const DeleteRequest = async (id: number) => {
+    fetch(`http://localhost:3000/recipes/${id}`, {
+        method: "DELETE",
+    });
+    console.log("data deleted successfully....");
+};
 
+//function to delete the item from database;
+const Delete = (id:number) => {
+    const confirm = window.confirm("Are you sure you want to delete This??");
+    console.log(confirm);
+    if(confirm){
+        DeleteRequest(id);
+    }else{
+        console.log("abort deletion....");
+    }
 }
-const data = fetch('http://localhost:3000/recipes').then(res => res.json()).then(data => console.log(data))
-console.log(data)

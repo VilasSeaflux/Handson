@@ -42,13 +42,12 @@ var RecipeName = document.querySelector("#name");
 var type = document.querySelector("#type");
 var desc = document.querySelector("#desc");
 var ul = document.querySelector('.ul');
-// const body = document.querySelector('body') as HTMLBodyElement;
 //Description modal 
 var heading = document.querySelector('#RecipeName');
 var description = document.querySelector("#recipeDescription");
 //function to fetch the data;
 var getData = function () { return __awaiter(_this, void 0, void 0, function () {
-    var res, data_1, err_1;
+    var res, data, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -58,8 +57,8 @@ var getData = function () { return __awaiter(_this, void 0, void 0, function () 
                 res = _a.sent();
                 return [4 /*yield*/, res.json()];
             case 2:
-                data_1 = _a.sent();
-                data_1.map(function (item) {
+                data = _a.sent();
+                data.map(function (item) {
                     console.log(item);
                     RenderList(item);
                     // view(item.id);
@@ -83,7 +82,7 @@ var RenderList = function (listData) {
     spanLeft.innerText = listData.name;
     //this will create the right side span which will have the view update delete button;
     var spanRight = document.createElement('span');
-    spanRight.innerHTML = "<i onclick=\"viewRecipe(" + listData.id + ")\" data-bs-target=\"#descriptionModal\" data-bs-toggle=\"modal\" class=\"bi bi-eye btn btn-primary\"></i> \n    <i class=\"bi bi-pencil btn btn-warning\"></i> <i class=\"bi bi-trash3 btn btn-danger\"></i>";
+    spanRight.innerHTML = "<i onclick=\"viewRecipe(" + listData.id + ")\" data-bs-target=\"#descriptionModal\" data-bs-toggle=\"modal\" class=\"bi bi-eye btn btn-primary\"></i> \n    <i class=\"bi bi-pencil btn btn-warning\"></i> \n    <i onclick=\"Delete(" + listData.id + ")\" class=\"bi bi-trash3 btn btn-danger\"></i>";
     li.append(spanLeft, spanRight);
     ul.append(li);
 };
@@ -112,18 +111,12 @@ var viewRecipe = function (id) { return __awaiter(_this, void 0, void 0, functio
 }); };
 AddForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    // console.log(id.value,RecipeName.value,type.value,desc.value);
-    // console.log(id.value);
-    // console.log(RecipeName.value);
-    // console.log(type.value);
-    // console.log(desc.value);
     var Recipe = {
         id: id.valueAsNumber,
         name: RecipeName.value,
         type: type.value,
         desc: desc.value
     };
-    // console.log(Recipe);
     postData(Recipe);
 });
 //This function posts data into database
@@ -155,7 +148,24 @@ var postData = function (data) { return __awaiter(_this, void 0, void 0, functio
         }
     });
 }); };
-var render = function () {
+//function to send delete request data from database:
+var DeleteRequest = function (id) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        fetch("http://localhost:3000/recipes/" + id, {
+            method: "DELETE"
+        });
+        console.log("data deleted successfully....");
+        return [2 /*return*/];
+    });
+}); };
+//function to delete the item from database;
+var Delete = function (id) {
+    var confirm = window.confirm("Are you sure you want to delete This??");
+    console.log(confirm);
+    if (confirm) {
+        DeleteRequest(id);
+    }
+    else {
+        console.log("abort deletion....");
+    }
 };
-var data = fetch('http://localhost:3000/recipes').then(function (res) { return res.json(); }).then(function (data) { return console.log(data); });
-console.log(data);
