@@ -1,10 +1,16 @@
 {
   "recipes": [
     {
-      "id": 1,
+      "id": 1687414803550,
       "name": "palak paneer",
-      "type": "veg",
-      "desc": "abcdefg"
+      "type": "Non-Veg",
+      "desc": "Palak paneer where the palak is mixed with a few paneers                             "
+    },
+    {
+      "id": 1687415104802,
+      "name": "Dandy Shake",
+      "type": "Veg",
+      "desc": "dhandy shake is kind of a milk shake which includes oats,milk,bananas and nuts                             "
     }
   ]
 }

@@ -39,11 +39,11 @@
                 </div>
                 <div class="modal-body">
                     <form class="form" method="post">
-                        <div class=" mb-2">
+                        <!-- <div class=" mb-2">
                             <label for="id">ID Number</label>
-                            <input type="number" id="id" placeholder="Enter Recipe Id" class="form-control" required>
+                            <input type="number" id="id" placeholder="Enter Recipe Id" class="form-control" >
 
-                        </div>
+                        </div> -->
                         <div class=" mb-2">
                             <label for="name">Name</label>
                             <input type="text" id="name" placeholder="Enter Recipe Name" class="form-control" required>
@@ -74,6 +74,59 @@
             </div>
         </div>
     </div>
+    
+    <!--
+        UPDATE RECIPE FORM
+    -->
+    <div class="modal fade" id="UpdateModal" tabindex="-1" aria-labelledby="UpdateRecipe" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-info" id="Recipe ">Update Recipe</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="update-form" method="PATCH">
+                        <!-- <div class=" mb-2">
+                            <label for="id">ID Number</label>
+                            <input type="number" id="Uid" placeholder="Enter Recipe Id" class="form-control" >
+
+                        </div> -->
+                        <div class=" mb-2">
+                            <label for="name">Name</label>
+                            <input type="text" id="Uname" placeholder="Enter Recipe Name" class="form-control" >
+
+                        </div>
+                        <div class="mb-2">
+                            <label for="Utype">Select Type</label>
+                            <select class="form-select" id="Utype" >
+                                <!-- <option>Select Type</option> -->
+                                <option>Veg</option>
+                                <option>Non-Veg</option>
+                            </select>
+                        </div>
+                        <div class="">
+                            <label for="desc">Description</label>
+                            <textarea id="Udesc" id="Udesc" class="form-control" >
+                             </textarea>
+
+                        </div>
+                        <hr>
+                        <div>
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                            <button class="btn btn-info" type="submit" id="Usubmit">Update Recipe</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--
+        VIEW MODAL
+    -->
     <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="descriptionModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -82,15 +135,41 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h4>Description</h4>
+                    <h4>Type :</h4>
+                    <p id="recipeType"></p>
+                    <h4>Recipe :</h4>
                     <p id="recipeDescription"></p>
+                  
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <!--
+        DELETE MODAL
+    -->
+    <div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="DeleteModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-info" id="DeleteName">Confirm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="DeleteConfirm"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal" id="cancelDelete">No</button>
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" id="Delete">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
