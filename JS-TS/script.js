@@ -45,17 +45,23 @@ getData();
 //function to render the Recipe lists
 const RenderList = (listData) => {
     const li = document.createElement('li');
-    li.classList.add("bg-light", "d-flex", "justify-content-between", "p-2");
+    li.classList.add("bg-light", "d-flex", "justify-content-between", "py-2");
     //This will create the span tag which will show name of Recipe
     const spanLeft = document.createElement('span');
     spanLeft.innerText = listData.name;
+    //
+    const SrSpan = document.createElement('span');
+    SrSpan.innerText = listData.id.toString();
+    //
+    const RecipeType = document.createElement('span');
+    RecipeType.innerText = listData.type;
     //this will create the right side span which will have the view update delete button;
     const spanRight = document.createElement('span');
     spanRight.innerHTML = `
-    <i onclick="viewRecipe(${listData.id})" data-bs-target="#descriptionModal" data-bs-toggle="modal" class="bi bi-eye btn btn-primary"></i> 
+    <i onclick="viewRecipe(${listData.id})" data-bs-target="#descriptionModal" data-bs-toggle="modal" class="bi bi-eye btn btn-info text-white"></i> 
     <i onclick="EditModal('${listData.id}')" data-bs-target="#UpdateModal" data-bs-toggle="modal" class="bi bi-pencil btn btn-warning"></i> 
     <i data-bs-target="#DeleteModal" data-bs-toggle="modal" onclick="Delete('${listData.name}', ${listData.id})" class="bi bi-trash3 btn btn-danger"></i>`;
-    li.append(spanLeft, spanRight);
+    li.append(spanLeft, RecipeType, spanRight);
     ul.append(li);
 };
 //submit data on form submit
@@ -110,8 +116,7 @@ const Delete = (name, id) => {
         DeleteRequest(id);
     });
 };
-//function to edit the database;
-// let UpdatedRecipe: Recipe;
+//function to get prefilled form value;
 const EditModal = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const preRes = yield fetch(`http://localhost:3000/recipes/${id}`);
     const preData = yield preRes.json();
@@ -122,6 +127,7 @@ const EditModal = (id) => __awaiter(void 0, void 0, void 0, function* () {
     Uid = yield preData.id;
     console.log(Uname.value);
 });
+//function to Edit to specific dish data;
 const UpdateData = () => __awaiter(void 0, void 0, void 0, function* () {
     const UpdatedRecipe = {
         id: Uid,
@@ -145,7 +151,7 @@ const UpdateData = () => __awaiter(void 0, void 0, void 0, function* () {
         console.log(err);
     }
 });
+//on form submit the data will get updated;
 Uform.addEventListener('submit', () => {
-    // e.preventDefault();
     UpdateData();
 });

@@ -14,16 +14,30 @@
 
 <body>
     <section class="container-fluid w-100 bg-light p-2">
-        <h2 class="text-info">FoodTreasure</h2>
+        <div class="d-flex justify-content-start align-items-center">
+            <img src="./Assets/Images/logo.png" class="logo"/>
+            <h2 class="text-info mt-1">FoodTreasure</h2>
+        </div>
     </section>
-    <section class="container mt-5 bg-light">
-        <h4 class="text-center pt-2 text-secondary">Your Recipes</h4>
+    <section class="container-fluid mt-5 bg-light list-container">
+        <h4 class="text-center pt-3">Your Recipes</h4>
+        <hr>
         <ul class="list-unstyled p-3 ul">
-
+            <div class="row fw-bolder text-info">
+                <div class="col-4 d-flex justify-content-start">
+                    <span class="h4">Recipe Name</span>
+                </div>
+                <div class="col-4 d-flex justify-content-center">
+                    <span class="h4">Recipe Type</span>
+                </div>
+                <div class="col-4 d-flex justify-content-end">
+                    <span class="h4">Actions</span>
+                </div>
+            </div>
         </ul>
     </section>
     <button data-bs-toggle="modal" data-bs-target="#addRecipe"
-        class="position-absolute btn btn-outline-primary p-2 rounded-circle bottom-0 end-0 me-5 mb-5">
+        class="position-absolute btn btn-outline-info p-3 rounded-circle bottom-0 end-0 me-5 mb-5">
         +
     </button>
 
@@ -39,11 +53,6 @@
                 </div>
                 <div class="modal-body">
                     <form class="form" method="post">
-                        <!-- <div class=" mb-2">
-                            <label for="id">ID Number</label>
-                            <input type="number" id="id" placeholder="Enter Recipe Id" class="form-control" >
-
-                        </div> -->
                         <div class=" mb-2">
                             <label for="name">Name</label>
                             <input type="text" id="name" placeholder="Enter Recipe Name" class="form-control" required>
@@ -59,7 +68,7 @@
                         </div>
                         <div class="">
                             <label for="desc">Description</label>
-                            <textarea id="desc" id="desc" class="form-control" required>
+                            <textarea id="desc" id="desc" class="form-control" required maxlength="400">
                              </textarea>
 
                         </div>
@@ -87,11 +96,6 @@
                 </div>
                 <div class="modal-body">
                     <form class="update-form" method="PATCH">
-                        <!-- <div class=" mb-2">
-                            <label for="id">ID Number</label>
-                            <input type="number" id="Uid" placeholder="Enter Recipe Id" class="form-control" >
-
-                        </div> -->
                         <div class=" mb-2">
                             <label for="name">Name</label>
                             <input type="text" id="Uname" placeholder="Enter Recipe Name" class="form-control" >
@@ -100,7 +104,6 @@
                         <div class="mb-2">
                             <label for="Utype">Select Type</label>
                             <select class="form-select" id="Utype" >
-                                <!-- <option>Select Type</option> -->
                                 <option>Veg</option>
                                 <option>Non-Veg</option>
                             </select>
@@ -135,11 +138,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h4>Type :</h4>
-                    <p id="recipeType"></p>
-                    <h4>Recipe :</h4>
-                    <p id="recipeDescription"></p>
-                  
+                    <div class="d-flex">
+                        <h5>Type : </h5> &nbsp; &nbsp;<p id="recipeType"></p>
+                    </div>
+                    <div class="d-flex">
+                        <h5>Recipe :</h5>&nbsp; &nbsp;
+                        <p id="recipeDescription"></p>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Close</button>
